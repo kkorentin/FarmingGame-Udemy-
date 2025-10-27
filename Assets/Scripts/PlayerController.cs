@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D theRB;
     public float moveSpeed;
 
-    public InputActionReference moveInput;
+    public InputActionReference moveInput, actionInput;
 
     public Animator anim;
 
@@ -30,6 +30,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = Vector3.one;
         }
+
+        if(actionInput.action.WasPressedThisFrame())
+        {
+            useTool();
+        }
         anim.SetFloat("speed", theRB.linearVelocity.magnitude);
+
+    }
+
+    void useTool()
+    {
+        GrowBlock block = null;
+
+        block = FindFirstObjectByType<GrowBlock>();
+
+        block.PloughSoil();
+
     }
 }
