@@ -45,8 +45,8 @@ public class CameraController : MonoBehaviour
 
         // Clamp (restreint) la position x entre clampMin.position.x et clampMax.position.x.
         // Mathf.Clamp(valeur, min, max) renvoie la valeur limitée entre min et max.
-        clampedPosition.x = Mathf.Clamp(clampedPosition.x, clampMin.position.x, clampMax.position.x);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, clampMin.position.y, clampMax.position.y);
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, clampMin.position.x +halfWidth, clampMax.position.x - halfWidth);
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, clampMin.position.y + halfHeight, clampMax.position.y - halfHeight);
 
         transform.position = clampedPosition;
     }
