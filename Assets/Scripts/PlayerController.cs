@@ -10,6 +10,16 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
+    public enum Tooltype
+    {
+        plough,
+        wateringCan,
+        seeds,
+        basket
+    }
+
+    public Tooltype currentTool;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,7 +41,33 @@ public class PlayerController : MonoBehaviour
             transform.localScale = Vector3.one;
         }
 
-        if(actionInput.action.WasPressedThisFrame())
+        if(Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            currentTool++;
+            if((int)currentTool>= 4)
+            {
+                currentTool = Tooltype.plough;
+            }
+        }
+
+        if(Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            currentTool = Tooltype.plough;
+        }
+        if(Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            currentTool = Tooltype.wateringCan;
+        }
+        if(Keyboard.current.digit3Key.wasPressedThisFrame)
+        {
+            currentTool = Tooltype.seeds;
+        }
+        if(Keyboard.current.digit4Key.wasPressedThisFrame)
+        {
+            currentTool = Tooltype.basket;
+        }
+
+        if (actionInput.action.WasPressedThisFrame())
         {
             useTool();
         }
@@ -45,7 +81,25 @@ public class PlayerController : MonoBehaviour
 
         block = FindFirstObjectByType<GrowBlock>();
 
-        block.PloughSoil();
+        //block.PloughSoil();
+        if(block!=null)
+        {
 
+            switch (currentTool)
+            {
+                case Tooltype.plough:
+                        block.PloughSoil();
+                    break;
+                case Tooltype.wateringCan:
+                        
+                    break;
+                case Tooltype.seeds:
+                        
+                    break;
+                case Tooltype.basket:
+                    
+                    break;
+            }
+        }
     }
 }
