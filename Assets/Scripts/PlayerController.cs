@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
 
     public Tooltype currentTool;
 
+    public float toolWaitTime = .5f;
+    private float toolWaitCounter;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,17 +45,27 @@ public class PlayerController : MonoBehaviour
     }
     void HandleMovement()
     {
-        //theRB.linearVelocity = new Vector2(moveSpeed, 0f);
-        theRB.linearVelocity = moveInput.action.ReadValue<Vector2>().normalized * moveSpeed;
+        if (toolWaitCounter> 0)
+        {
+            // how long the player has to wait before being able to move again after using a tool
+            toolWaitCounter -= Time.deltaTime;
+            theRB.linearVelocity = Vector2.zero;
+        }
+        else
+        {
+            //theRB.linearVelocity = new Vector2(moveSpeed, 0f);
+            theRB.linearVelocity = moveInput.action.ReadValue<Vector2>().normalized * moveSpeed;
 
-        if (theRB.linearVelocity.x < 0f)
-        {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            if (theRB.linearVelocity.x < 0f)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (theRB.linearVelocity.x > 0f)
+            {
+                transform.localScale = Vector3.one;
+            }
         }
-        else if (theRB.linearVelocity.x > 0f)
-        {
-            transform.localScale = Vector3.one;
-        }
+            
     }
     void HandleToolSwitch()
     {
@@ -110,7 +123,9 @@ public class PlayerController : MonoBehaviour
         block = FindFirstObjectByType<GrowBlock>();
 
         //block.PloughSoil();
-        if(block!=null)
+
+        toolWaitCounter = toolWaitTime;
+        if (block!=null)
         {
 
             switch (currentTool)
