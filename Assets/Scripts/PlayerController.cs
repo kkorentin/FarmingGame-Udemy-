@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        UIController.instance.SwitchTool((int)currentTool);
     }
 
     // Update is called once per frame
@@ -41,31 +41,53 @@ public class PlayerController : MonoBehaviour
             transform.localScale = Vector3.one;
         }
 
-        if(Keyboard.current.tabKey.wasPressedThisFrame)
+
+
+
+        bool hasSwitchedTool = false;
+
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             currentTool++;
             if((int)currentTool>= 4)
             {
                 currentTool = Tooltype.plough;
             }
+            hasSwitchedTool = true;
         }
 
         if(Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.plough;
+            hasSwitchedTool = true;
         }
         if(Keyboard.current.digit2Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.wateringCan;
+            hasSwitchedTool = true;
         }
         if(Keyboard.current.digit3Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.seeds;
+            hasSwitchedTool = true;
         }
         if(Keyboard.current.digit4Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.basket;
+            hasSwitchedTool = true;
         }
+
+        if(hasSwitchedTool==true)
+        {
+            //Pas la meilleure façon de faire mais bon...
+            //FindFirstObjectByType<UIController>().SwitchTool((int)currentTool);
+            UIController.instance.SwitchTool((int)currentTool);
+        }
+
+
+
+
+
 
         if (actionInput.action.WasPressedThisFrame())
         {
