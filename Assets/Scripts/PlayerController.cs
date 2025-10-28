@@ -29,74 +29,80 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleInput();
+        anim.SetFloat("speed", theRB.linearVelocity.magnitude);
+
+    }
+    void HandleInput()
+    {
+        HandleAction();
+        HandleToolSwitch();
+        HandleMovement();
+
+    }
+    void HandleMovement()
+    {
         //theRB.linearVelocity = new Vector2(moveSpeed, 0f);
         theRB.linearVelocity = moveInput.action.ReadValue<Vector2>().normalized * moveSpeed;
 
-        if(theRB.linearVelocity.x < 0f)
+        if (theRB.linearVelocity.x < 0f)
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
-        else if(theRB.linearVelocity.x > 0f)
+        else if (theRB.linearVelocity.x > 0f)
         {
             transform.localScale = Vector3.one;
         }
-
-
-
-
+    }
+    void HandleToolSwitch()
+    {
         bool hasSwitchedTool = false;
 
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             currentTool++;
-            if((int)currentTool>= 4)
+            if ((int)currentTool >= 4)
             {
                 currentTool = Tooltype.plough;
             }
             hasSwitchedTool = true;
         }
 
-        if(Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.plough;
             hasSwitchedTool = true;
         }
-        if(Keyboard.current.digit2Key.wasPressedThisFrame)
+        if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.wateringCan;
             hasSwitchedTool = true;
         }
-        if(Keyboard.current.digit3Key.wasPressedThisFrame)
+        if (Keyboard.current.digit3Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.seeds;
             hasSwitchedTool = true;
         }
-        if(Keyboard.current.digit4Key.wasPressedThisFrame)
+        if (Keyboard.current.digit4Key.wasPressedThisFrame)
         {
             currentTool = Tooltype.basket;
             hasSwitchedTool = true;
         }
 
-        if(hasSwitchedTool==true)
+        if (hasSwitchedTool == true)
         {
             //Pas la meilleure façon de faire mais bon...
             //FindFirstObjectByType<UIController>().SwitchTool((int)currentTool);
             UIController.instance.SwitchTool((int)currentTool);
         }
-
-
-
-
-
-
+    }
+    void HandleAction()
+    {
         if (actionInput.action.WasPressedThisFrame())
         {
             useTool();
         }
-        anim.SetFloat("speed", theRB.linearVelocity.magnitude);
-
     }
-
     void useTool()
     {
         GrowBlock block = null;
