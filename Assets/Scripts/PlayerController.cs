@@ -139,10 +139,11 @@ public class PlayerController : MonoBehaviour
                         anim.SetTrigger("useWateringCan");
                     break;
                 case Tooltype.seeds:
-                        
+                    block.PlantCrop();
+
                     break;
                 case Tooltype.basket:
-                    
+                    block.HarvestCrop();
                     break;
             }
         }
