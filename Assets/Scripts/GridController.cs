@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
+    public static GridController instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public Transform minPoint,maxPoint;
 
     public GrowBlock baseGridBlock;
@@ -57,6 +63,22 @@ public class GridController : MonoBehaviour
 
 
         baseGridBlock.gameObject.SetActive(false);
+    }
+
+    public GrowBlock GetBlock(float x,float y)
+    {
+        x= Mathf.RoundToInt(x);
+        y= Mathf.RoundToInt(y);
+
+        int intX = Mathf.RoundToInt(x - minPoint.position.x);
+        int intY = Mathf.RoundToInt(y - minPoint.position.y);
+
+        if(x<gridSize.x && y<gridSize.y)
+        {
+            return blockRows[intY].blocks[intX];
+        }
+
+        return null;
     }
 }
 

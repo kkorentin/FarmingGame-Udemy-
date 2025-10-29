@@ -470,9 +470,10 @@ MonoBehaviour:
   moveInput: {fileID: -1680190386980627800, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   actionInput: {fileID: 1120369429361536294, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   anim: {fileID: 593534697}
-  currentTool: 3
+  currentTool: 0
   toolWaitTime: 0.5
   toolIndicator: {fileID: 931439660}
+  toolrange: 3
 --- !u!70 &216714708
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
