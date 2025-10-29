@@ -22,8 +22,8 @@ public class GrowBlock : MonoBehaviour
     public Sprite cropPlanted, cropGrowing1, cropGrowing2,cropRipe;
 
     public bool isWatered;
-    private bool isPlanted;
 
+    public bool preventUse;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,18 +49,6 @@ public class GrowBlock : MonoBehaviour
     }
 
 
-    void AdvanceStage()
-    {
-        currentStage = currentStage + 1;
-
-        if((int)currentStage >= 6)
-        {
-            currentStage = GrowStage.barren;
-        }
-
-    }
-
-
     public void SetSoilSprite()
     {
         if(currentStage == GrowStage.barren)
@@ -82,7 +70,7 @@ public class GrowBlock : MonoBehaviour
 
     public void PloughSoil()
     {
-        if(currentStage == GrowStage.barren)
+        if(currentStage == GrowStage.barren && preventUse == false)
         {
             currentStage = GrowStage.ploughed;
             SetSoilSprite();
@@ -91,13 +79,17 @@ public class GrowBlock : MonoBehaviour
 
     public void WaterSoil()
     {
-        isWatered = true;
-        SetSoilSprite();
+        if(preventUse==false)
+        {
+            isWatered = true;
+            SetSoilSprite();
+        }
+        
     }
 
     public void PlantCrop()
     {
-        if(currentStage == GrowStage.ploughed && isWatered == true)
+        if(currentStage == GrowStage.ploughed && isWatered == true && preventUse==false)
         {
             currentStage = GrowStage.planted;
 
@@ -126,7 +118,7 @@ public class GrowBlock : MonoBehaviour
 
     public void AdvanceCrop()
     {
-        if (isWatered == true)
+        if (isWatered == true && preventUse==false)
         {
             if(currentStage == GrowStage.planted || currentStage == GrowStage.growing1 || currentStage == GrowStage.growing2)
             {
@@ -140,7 +132,7 @@ public class GrowBlock : MonoBehaviour
 
     public void HarvestCrop()
     {
-        if(currentStage == GrowStage.ripe)
+        if(currentStage == GrowStage.ripe && preventUse == false)
         {
             currentStage = GrowStage.ploughed;
             SetSoilSprite();
