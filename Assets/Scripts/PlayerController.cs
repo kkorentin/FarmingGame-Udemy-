@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float toolWaitTime = .5f;
     private float toolWaitCounter;
 
+    public Transform toolIndicator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour
     {
         HandleInput();
         anim.SetFloat("speed", theRB.linearVelocity.magnitude);
+        
+        toolIndicator.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        toolIndicator.position = new Vector3(toolIndicator.position.x, toolIndicator.position.y, 0f);
 
     }
     void HandleInput()

@@ -50,7 +50,7 @@ public class GridController : MonoBehaviour
                if(Physics2D.OverlapBox(newBlock.transform.position,new Vector2(.9f,.9f),0f,gridBlockers))
                {
                    newBlock.theSR.sprite = null;
-                    newBlock.preventUse = true;
+                   newBlock.preventUse = true;
                 }
             }
         }
