@@ -20,8 +20,10 @@ public class CameraController : MonoBehaviour
     {
         // Recherche une instance de PlayerController dans la scène et récupère son Transform.
         // Remarque : FindAnyObjectByType peut renvoyer null si aucun PlayerController n'existe.
-        target = FindAnyObjectByType<PlayerController>().transform;
+        //target = FindAnyObjectByType<PlayerController>().transform;
 
+        target = PlayerController.instance.transform;
+        
         // Détache les objets clampMin et clampMax de leurs parents dans la hiérarchie.
         // Cela les place au niveau racine de la scène et conserve leurs positions.
         clampMin.SetParent(null);
