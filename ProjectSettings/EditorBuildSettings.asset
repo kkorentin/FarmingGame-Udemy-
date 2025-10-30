@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Indoors-Copy.unity
     guid: 7d89edc9efb68be4b839870376fcb521
+  - enabled: 1
+    path: Assets/Scenes/DayEnd.unity
+    guid: f7f2cc920a4f9ac4d9a01e24ec28f4ed
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

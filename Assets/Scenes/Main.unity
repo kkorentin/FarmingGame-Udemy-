@@ -45358,6 +45358,8 @@ MonoBehaviour:
   dayStart: 7
   dayEnd: 26
   timeSpeed: 0.25
+  currentDay: 1
+  DayEnScene: DayEnd
 --- !u!1 &2032729228
 GameObject:
   m_ObjectHideFlags: 0
