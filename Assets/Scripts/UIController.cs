@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
@@ -20,6 +21,8 @@ public class UIController : MonoBehaviour
 
     public GameObject[] toolbarActivatorIcons;
 
+    public TMP_Text timeText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,5 +43,27 @@ public class UIController : MonoBehaviour
        }
 
         toolbarActivatorIcons[selected].SetActive(true);
+    }
+
+    public void UpdateTimeText(float currentTime)
+    {
+        switch (currentTime)
+        {
+            case < 12:
+                timeText.text = Mathf.FloorToInt(currentTime) + " AM";
+            break;
+            case < 13:
+                timeText.text = "12 PM";
+            break;
+            case < 24:
+                timeText.text = Mathf.FloorToInt(currentTime - 12) + " PM";
+            break;
+            case < 25:
+                timeText.text = "12 AM";
+            break;
+            case > 25:
+                timeText.text = Mathf.FloorToInt(currentTime - 24) + " AM";
+            break;
+        }  
     }
 }
