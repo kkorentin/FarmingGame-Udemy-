@@ -24,6 +24,8 @@ public class GrowBlock : MonoBehaviour
     public bool isWatered;
 
     public bool preventUse;
+
+    private Vector2Int gridPosition;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -66,6 +68,7 @@ public class GrowBlock : MonoBehaviour
                 theSR.sprite = soilTilled;
             }
         }
+        UpdateGridInfo();
     }
 
     public void PloughSoil()
@@ -114,6 +117,7 @@ public class GrowBlock : MonoBehaviour
                 cropSr.sprite = cropRipe;
                 break;
         }
+        UpdateGridInfo();
     }
 
     public void AdvanceCrop()
@@ -138,5 +142,15 @@ public class GrowBlock : MonoBehaviour
             SetSoilSprite();
             cropSr.sprite = null;
         }
+    }
+
+    public void setGridPoistion(int x,int y)
+    {
+        gridPosition = new Vector2Int(x, y);
+    }
+
+    void UpdateGridInfo()
+    {
+        GridInfo.instance.UpdateInfo(this, gridPosition.x, gridPosition.y);
     }
 }
